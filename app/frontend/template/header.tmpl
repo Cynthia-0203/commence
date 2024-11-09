@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/">Mall</a>
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,25 +41,27 @@
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     <div class="ms-3">
+                        <a href="/cart" class="text-reset">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                        </a>
                     </div>
                     
                     {{ if .user_id }}
                     
-                    <div class="dropdown ">
-                        
-                        <div class="ms-3 dropdown-toggle"  data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-user fa-lg"></i>
-                            <span >hello</span>
+                        <div class="dropdown ">
+                            
+                            <div class="ms-3 dropdown-toggle"  data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-user fa-lg"></i>
+                                <span >hello</span>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Order Center</a></li>
+                                <form action="/auth/logout" method="post">
+                                    <button class="dropdown-item" type="submit">Logout</button>
+                                </form>
+                            
+                            </ul>
                         </div>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Order Center</a></li>
-                            <form action="/auth/logout" method="post">
-                                <button class="dropdown-item" type="submit">Logout</button>
-                            </form>
-                        
-                        </ul>
-                    </div>
                     {{ else }}
                     <div class="ms-3">
                         <a type="button" class="btn btn-primary" href="/sign-in">Sign in</a>

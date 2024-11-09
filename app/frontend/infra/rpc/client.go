@@ -1,10 +1,12 @@
 package rpc
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/Cynthia/commence/app/frontend/conf"
 	frontendutils "github.com/Cynthia/commence/app/frontend/utils"
+	"github.com/Cynthia/commence/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
@@ -15,6 +17,7 @@ import (
 var (
 	UserClient userservice.Client
 	ProductClient productcatalogservice.Client
+	CartClient cartservice.Client
 	once sync.Once
 )
 
@@ -22,6 +25,7 @@ func Init() {
 	once.Do(func() {
 		initUserClient()
 		initProductClient()
+		initCartClient()
 	})
 }
 
@@ -48,4 +52,17 @@ func initProductClient() {
 	ProductClient,err = productcatalogservice.NewClient("product", opts...)
 
 	frontendutils.MustHandleError(err)
+}
+
+func initCartClient() {
+	var opts []client.Option
+	r,err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+
+	frontendutils.MustHandleError(err)
+
+	opts = append(opts, client.WithResolver(r))
+	CartClient,err = cartservice.NewClient("cart", opts...)
+
+	frontendutils.MustHandleError(err)
+	fmt.Println("init cart client success")
 }

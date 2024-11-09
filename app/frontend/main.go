@@ -6,7 +6,7 @@ import (
 	"context"
 	"os"
 	"time"
-
+	futils "github.com/Cynthia/commence/app/frontend/utils"
 	"github.com/Cynthia/commence/app/frontend/biz/router"
 	"github.com/Cynthia/commence/app/frontend/conf"
 	"github.com/Cynthia/commence/app/frontend/infra/rpc"
@@ -50,7 +50,11 @@ func main() {
 	h.Static("/static","./")
 
 	h.GET("/about",func(c context.Context, ctx *app.RequestContext) {
-		ctx.HTML(consts.StatusOK, "about",utils.H{"Title":"About"})
+		userId := futils.GetUserIdFromCtx(c)
+		ctx.HTML(consts.StatusOK, "about",utils.H{
+			"Title":"About",
+			"user_id":userId,
+		})
 	})
 	h.GET("/sign-in",func(c context.Context, ctx *app.RequestContext) {
 		data := utils.H{

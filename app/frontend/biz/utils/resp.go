@@ -2,7 +2,10 @@ package utils
 
 import (
 	"context"
+
+	"github.com/Cynthia/commence/app/frontend/infra/rpc"
 	frontendutils "github.com/Cynthia/commence/app/frontend/utils"
+	"github.com/Cynthia/commence/rpc_gen/kitex_gen/cart"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -19,6 +22,15 @@ func SendSuccessResponse(ctx context.Context, c *app.RequestContext, code int, d
 }
 
 func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string]any) map[string]any {
-	content["user_id"] = frontendutils.GetUserIdFromCtx(ctx)
+	userId := frontendutils.GetUserIdFromCtx(ctx)
+	content["user_id"] = userId
+	if userId > 0 {
+		cartResp,err:=rpc.CartClient.GetCart(ctx,&cart.GetCartReq{
+			UserId: uint32(userId),
+		})
+		if err != nil && cartResp != nil {
+			content["cart_num"] = cartResp.Cart
+		}
+	}
 	return content
 }
