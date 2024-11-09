@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Cynthia/commence/app/product/biz/dal/mysql"
 	"github.com/Cynthia/commence/app/product/model"
@@ -19,6 +20,7 @@ func NewGetProductService(ctx context.Context) *GetProductService {
 // Run create note info
 func (s *GetProductService) Run(req *product.GetProductReq) (resp *product.GetProductResp, err error) {
 	// Finish your business logic.
+	fmt.Println("rpc req:",req.Id)
 	if req.Id == 0{
 		return nil,kerrors.NewGRPCBizStatusError(2004001,"product id is required")
 	}

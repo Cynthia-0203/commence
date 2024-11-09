@@ -20,6 +20,9 @@ func (s *SearchProductsService) Run(req *product.SearchProductsReq) (resp *produ
 	// Finish your business logic.
 	productQuery := model.NewProductQuery(s.ctx,mysql.DB)
 	products,err := productQuery.SearchPeoduct(req.Query)
+	if err!= nil{
+		return nil,err
+	}
 	var results []*product.Product
 
 	for _,v := range products{
@@ -31,5 +34,5 @@ func (s *SearchProductsService) Run(req *product.SearchProductsReq) (resp *produ
 			Name: v.Name,
 		})
 	}
-	return
+	return &product.SearchProductsResp{Results: results},nil
 }

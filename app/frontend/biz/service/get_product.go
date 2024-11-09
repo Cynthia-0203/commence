@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	product "github.com/Cynthia/commence/app/frontend/hertz_gen/frontend/product"
 	"github.com/Cynthia/commence/app/frontend/infra/rpc"
@@ -25,12 +26,13 @@ func (h *GetProductService) Run(req *product.ProductReq) (resp map[string]any, e
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
 	// todo edit your code
-	p ,err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: req.Id})
+	p,err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: req.Id})
+	fmt.Println("http-getproduct resp:",p)
 	if err != nil {
 		return nil, err
 	}
 
 	return utils.H{
-		"items":p.Product,
+		"Item":p.Product,
 	},nil
 }

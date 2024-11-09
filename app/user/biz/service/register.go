@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/Cynthia/commence/app/user/biz/dal/mysql"
 	"github.com/Cynthia/commence/app/user/model"
@@ -38,5 +39,6 @@ func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, e
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("ready to return")
 	return &user.RegisterResp{UserId: int32(newUser.ID)}, nil
 }

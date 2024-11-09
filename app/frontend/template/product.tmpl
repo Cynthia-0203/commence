@@ -14,13 +14,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ .item.Picture }}" class="d-block w-100" alt="...">
+                            <img src="{{ .Item.Picture }}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ .item.Picture }}" class="d-block w-100" alt="...">
+                            <img src="{{ .Item.Picture }}" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ .item.Picture }}" class="d-block w-100" alt="...">
+                            <img src="{{ .Item.Picture }}" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#productPicture"
@@ -37,9 +37,9 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-5 col-sm-12 flex-column align-self-center">
                     <form action="/cart" method="post">
-                        <h5 class="card-title">{{ .item.Name }}</h5>
-                        <p class="card-text">{{ .item.Description }}</p>
-                        <p class="card-text">${{ .item.Price }}</p>
+                        <h5 class="card-title">{{ .Item.Name }}</h5>
+                        <p class="card-text">{{ .Item.Description }}</p>
+                        <p class="card-text">￥{{ .Item.Price }}</p>
                         <input type="hidden" value="{{ .item.Id }}" name="productId">
                         <label for="productNum">数量：</label>
                         <input type="number" class="form-control mt-3" id="productNum" name="productNum" value="1"

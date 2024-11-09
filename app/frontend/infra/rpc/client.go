@@ -26,24 +26,16 @@ func Init() {
 }
 
 func initUserClient() {
-	// var opts []client.Option
-	// r,err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+	var opts []client.Option
+	r,err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
 	
-	// frontendutils.MustHandleError(err)
+	frontendutils.MustHandleError(err)
 	
-	// opts = append(opts, client.WithResolver(r))
-	// UserClient,err = userservice.NewClient("user",opts...)
+	opts = append(opts, client.WithResolver(r))
+	UserClient,err = userservice.NewClient("user",opts...)
 	
-	// frontendutils.MustHandleError(err)
+	frontendutils.MustHandleError(err)
 
-	r,err := consul.NewConsulResolver("127.0.0.1")
-	if err != nil{
-		panic(err)
-	}
-	UserClient,err = userservice.NewClient("user",client.WithResolver(r))
-	if err != nil{
-		panic(err)
-	}
 }
 
 func initProductClient() {

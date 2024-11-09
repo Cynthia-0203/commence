@@ -2,6 +2,7 @@ package product
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Cynthia/commence/app/frontend/biz/service"
 	"github.com/Cynthia/commence/app/frontend/biz/utils"
@@ -15,7 +16,9 @@ import (
 func GetProduct(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req product.ProductReq
+	
 	err = c.BindAndValidate(&req)
+	fmt.Println("get product id:",req.Id)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
@@ -40,7 +43,7 @@ func SearchProducts(ctx context.Context, c *app.RequestContext) {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
-
+	fmt.Println("http-search req:",req.Q)
 	resp, err := service.NewSearchProductsService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)

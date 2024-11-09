@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	home "github.com/Cynthia/commence/app/frontend/hertz_gen/frontend/home"
 	"github.com/Cynthia/commence/app/frontend/infra/rpc"
@@ -25,13 +26,13 @@ func (h *HomeService) Run(req *home.Empty) (map[string]any,error) {
 	//}()
 	// todo edit your code
 	p,err := rpc.ProductClient.ListProducts(h.Context, &product.ListProductsReq{})
-
+	fmt.Println("http-home resp:",p)
 	if err != nil{
 		return nil,err
 	}
 
 	return map[string]any{
-		"title":"Hot Sale",
-		"items":p.Products,
+		"Title":"Hot Sale",
+		"Items":p.Products,
 	},nil
 }

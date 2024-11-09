@@ -2,8 +2,10 @@ package service
 
 import (
 	"context"
-	"github.com/Cynthia/commence/app/product/model"
+	"fmt"
+
 	"github.com/Cynthia/commence/app/product/biz/dal/mysql"
+	"github.com/Cynthia/commence/app/product/model"
 	product "github.com/Cynthia/commence/rpc_gen/kitex_gen/product"
 )
 
@@ -19,6 +21,9 @@ func (s *ListProductsService) Run(req *product.ListProductsReq) (resp *product.L
 	// Finish your business logic.
 	categoryQuery := model.NewCategoryQuery(s.ctx,mysql.DB)
 	c,err := categoryQuery.GetProductsByCategoryName(req.CategoryName)
+	if err != nil{
+		return nil,err
+	}
 	resp = &product.ListProductsResp{}
 	for _,v1 := range c{
 		for _,v := range v1.Products{
@@ -31,6 +36,6 @@ func (s *ListProductsService) Run(req *product.ListProductsReq) (resp *product.L
 			})
 		}
 	}
-	
+	fmt.Println("rpc-list products resp:",resp)
 	return resp,nil
 }

@@ -32,7 +32,7 @@ func (h *SearchProductsService) Run(req *product.SearchProductsReq) (resp map[st
 		return nil, err
 	}
 	return utils.H{
-		"items":p.Results,
-		"q": req.Q,
+		"Items":p.Results,
+		"Q": req.Q,
 	},nil
 }

@@ -21,7 +21,6 @@ func Category(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	
 	resp, err := service.NewCategoryService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)

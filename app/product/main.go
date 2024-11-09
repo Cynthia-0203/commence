@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net"
 	"time"
 
@@ -39,7 +38,7 @@ func kitexInit() (opts []server.Option) {
 		panic(err)
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
-	fmt.Println(conf.GetConf().Registry.RegistryAddress[0])
+	
 	r,err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
 	if err != nil {
 		panic(err)
@@ -61,7 +60,7 @@ func kitexInit() (opts []server.Option) {
 			MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
 			MaxAge:     conf.GetConf().Kitex.LogMaxAge,
 		}),
-		FlushInterval: time.Minute,
+		FlushInterval: time.Second,
 	}
 	klog.SetOutput(asyncWriter)
 	server.RegisterShutdownHook(func() {

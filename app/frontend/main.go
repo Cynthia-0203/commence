@@ -45,7 +45,7 @@ func main() {
 	})
 
 	router.GeneratedRegister(h)
-	
+
 	h.LoadHTMLGlob("template/*")
 	h.Static("/static","./")
 
@@ -60,7 +60,6 @@ func main() {
 		ctx.HTML(consts.StatusOK, "sign-in",data)
 	})
 	h.GET("/sign-up",func(c context.Context, ctx *app.RequestContext) {
-		
 		ctx.HTML(consts.StatusOK, "sign-up",utils.H{"Title":"Sign Up"})
 	})
 	h.Spin()

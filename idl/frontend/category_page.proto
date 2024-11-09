@@ -9,7 +9,7 @@ option go_package = "/frontend/category";
 message Empty {}
 
 service CategoryService {
-    rpc category(CategoryReq) returns (Empty) {
+    rpc Category(CategoryReq) returns (Empty) {
         option (api.get) = "/category/:category";
     }
 }
