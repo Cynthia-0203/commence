@@ -10,6 +10,8 @@ gen-category-proto:
 gen-cart_page-proto:
 	@cd app/frontend && cwgo server --type HTTP --idl ../../idl/frontend/cart_page.proto --service frontend --module github.com/Cynthia/commence/app/frontend -I ../../
 
+gen-checkout_page-proto:
+	@cd app/frontend && cwgo server --type HTTP --idl ../../idl/frontend/checkout_page.proto --service frontend --module github.com/Cynthia/commence/app/frontend -I ../../
 
 
 gen-user-proto-client:
@@ -27,3 +29,11 @@ gen-product-proto-server:
 gen-cart-proto:
 	@cd rpc_gen && cwgo client --type RPC  --service cart --module github.com/Cynthia/commence/rpc_gen -I ../idl --idl ../idl/cart.proto
 	@cd app/cart && cwgo server --type RPC  --service cart --module github.com/Cynthia/commence/app/cart --pass "-use github.com/Cynthia/commence/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/cart.proto
+
+gen-payment-proto:
+	@cd rpc_gen && cwgo client --type RPC  --service payment --module github.com/Cynthia/commence/rpc_gen -I ../idl --idl ../idl/payment.proto
+	@cd app/payment && cwgo server --type RPC  --service payment --module github.com/Cynthia/commence/app/payment --pass "-use github.com/Cynthia/commence/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/payment.proto
+
+gen-checkout-proto:
+	@cd rpc_gen && cwgo client --type RPC  --service checkout --module github.com/Cynthia/commence/rpc_gen -I ../idl --idl ../idl/checkout.proto
+	@cd app/checkout && cwgo server --type RPC  --service checkout --module github.com/Cynthia/commence/app/checkout --pass "-use github.com/Cynthia/commence/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/checkout.proto
