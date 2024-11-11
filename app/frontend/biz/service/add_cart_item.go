@@ -29,7 +29,7 @@ func (h *AddCartItemService) Run(req *fcart.AddCartItemReq) (resp map[string]any
 		UserId: uint32(frontendutils.GetUserIdFromCtx(h.Context)),
 		Item: &cart.CartItem{
 			ProductId: req.ProductId,
-			Quantity:  req.Count,
+			Quantity:  uint32(req.Count),
 		},
 	})
 	if err != nil {

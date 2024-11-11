@@ -28,5 +28,4 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("connect mysql success")
 }

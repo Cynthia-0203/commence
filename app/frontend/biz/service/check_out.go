@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/Cynthia/commence/app/frontend/infra/rpc"
@@ -32,15 +31,12 @@ func (h *CheckOutService) Run(req *checkout.Empty) (resp map[string]any, err err
 
 	var items []map[string]string
 	userId := frontendutils.GetUserIdFromCtx(h.Context)
-	fmt.Println("checkout start getcart")
 	carts,err := rpc.CartClient.GetCart(h.Context,&cart.GetCartReq{
 		UserId: uint32(userId),
 	})
-	fmt.Println("checkout end getcart")
 	if err != nil {
 		return nil,err
 	}
-	fmt.Println("http-checkout carts:",carts)
 	var total float32
 
 	for  _,cartItem := range carts.Cart {
@@ -48,7 +44,6 @@ func (h *CheckOutService) Run(req *checkout.Empty) (resp map[string]any, err err
 		if err != nil {
 			return nil,err
 		}
-		fmt.Println("http-product carts:",productResp)
 		if productResp.Product == nil {
 			continue
 		}
@@ -65,7 +60,7 @@ func (h *CheckOutService) Run(req *checkout.Empty) (resp map[string]any, err err
 		cost := p.Price * float32(cartItem.Quantity)
 		total += cost
 	}
-	fmt.Println("http-checkout total:",total)
+	
 	return utils.H{
 		"Title":"CheckOut",
 		"Items": items,

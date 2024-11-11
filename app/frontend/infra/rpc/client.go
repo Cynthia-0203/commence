@@ -8,6 +8,7 @@ import (
 	frontendutils "github.com/Cynthia/commence/app/frontend/utils"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"github.com/Cynthia/commence/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/Cynthia/commence/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
@@ -20,6 +21,7 @@ var (
 	ProductClient productcatalogservice.Client
 	CartClient cartservice.Client
 	CheckoutClient checkoutservice.Client
+	OrderClient orderservice.Client
 	once sync.Once
 )
 
@@ -28,6 +30,7 @@ func Init() {
 		initUserClient()
 		initProductClient()
 		initCartClient()
+		initOrderClient()
 		initCheckoutClient()
 	})
 }
@@ -67,7 +70,6 @@ func initCartClient() {
 	CartClient,err = cartservice.NewClient("cart", opts...)
 
 	frontendutils.MustHandleError(err)
-	fmt.Println("init cart client success")
 }
 
 func initCheckoutClient() {
@@ -80,5 +82,17 @@ func initCheckoutClient() {
 	CheckoutClient,err = checkoutservice.NewClient("checkout", opts...)
 
 	frontendutils.MustHandleError(err)
-	fmt.Println("init cart client success")
+}
+
+func initOrderClient() {
+	var opts []client.Option
+	r,err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+
+	frontendutils.MustHandleError(err)
+
+	opts = append(opts, client.WithResolver(r))
+	OrderClient,err = orderservice.NewClient("order", opts...)
+
+	frontendutils.MustHandleError(err)
+	fmt.Println("initOrderClient")
 }

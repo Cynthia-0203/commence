@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 
 	category "github.com/Cynthia/commence/app/frontend/hertz_gen/frontend/category"
 	"github.com/Cynthia/commence/app/frontend/infra/rpc"
@@ -30,7 +29,6 @@ func (h *CategoryService) Run(req *category.CategoryReq) (resp map[string]any, e
 	if err!=nil{
 		return nil,err
 	}
-	fmt.Println("http-category resp:",p)
 	return utils.H{
 		"Title":"Category",
 		"Items":p.Products,

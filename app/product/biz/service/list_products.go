@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Cynthia/commence/app/product/biz/dal/mysql"
 	"github.com/Cynthia/commence/app/product/model"
@@ -36,6 +35,5 @@ func (s *ListProductsService) Run(req *product.ListProductsReq) (resp *product.L
 			})
 		}
 	}
-	fmt.Println("rpc-list products resp:",resp)
 	return resp,nil
 }

@@ -27,7 +27,7 @@ func (s *GetCartService) Run(req *cart.GetCartReq) (resp *cart.GetCartResp, err 
 	for _,item := range items {
 		list = append(list, &cart.CartItem{
 			ProductId: item.ProductID,
-			Quantity:  int32(item.Qty),
+			Quantity:  item.Qty,
 		})
 	}
 	return &cart.GetCartResp{Cart: list},nil
